@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/voronoi-generator/static/css/main.f3651236.chunk.css",
+    "main.js": "/voronoi-generator/static/js/main.524966d6.chunk.js",
+    "main.js.map": "/voronoi-generator/static/js/main.524966d6.chunk.js.map",
+    "runtime-main.js": "/voronoi-generator/static/js/runtime-main.db8d1294.js",
+    "runtime-main.js.map": "/voronoi-generator/static/js/runtime-main.db8d1294.js.map",
+    "static/css/2.679831fc.chunk.css": "/voronoi-generator/static/css/2.679831fc.chunk.css",
+    "static/js/2.832297b2.chunk.js": "/voronoi-generator/static/js/2.832297b2.chunk.js",
+    "static/js/2.832297b2.chunk.js.map": "/voronoi-generator/static/js/2.832297b2.chunk.js.map",
+    "index.html": "/voronoi-generator/index.html",
+    "static/css/2.679831fc.chunk.css.map": "/voronoi-generator/static/css/2.679831fc.chunk.css.map",
+    "static/css/main.f3651236.chunk.css.map": "/voronoi-generator/static/css/main.f3651236.chunk.css.map",
+    "static/js/2.832297b2.chunk.js.LICENSE.txt": "/voronoi-generator/static/js/2.832297b2.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.db8d1294.js",
+    "static/css/2.679831fc.chunk.css",
+    "static/js/2.832297b2.chunk.js",
+    "static/css/main.f3651236.chunk.css",
+    "static/js/main.524966d6.chunk.js"
+  ]
+}
