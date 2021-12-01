@@ -1,10 +1,10 @@
-import React, { useRef, useEffect, useCallback } from "react";
+import React, { useCallback } from "react";
 import { Delaunay } from 'd3-delaunay';
 import { scaleLinear } from 'd3-scale';
+import useCanvas from "../hooks/UseCanvas";
 
 const Canvas = props => {
     const n = 200;
-    const canvasRef = useRef(null);
     const particles = Array.from({ length: n }, () => [Math.random() * props.width, Math.random() * props.height]);
 
     const center = useCallback(() => [props.width * 0.5, props.height * 0.5], [props.height, props.width]);
@@ -20,7 +20,7 @@ const Canvas = props => {
         const maxDistance = pythagoras(center()[0], center()[1]);
         return scaleLinear()
             .domain([0, maxDistance])
-            .range(['#DEDC47', '#fff'])
+            .range(['#DEDC47', '#edec9b'])
     }, [center]);
 
     const distance = useCallback((x, y) => {
@@ -68,14 +68,7 @@ const Canvas = props => {
         update(context);
     }, [particles, update]);
 
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        const context = canvas.getContext('2d');
-        context.canvas.onmousemove = event => {
-            handleMouseMove(context, event);
-        };
-        update(context)
-    }, [handleMouseMove, update]);
+    const canvasRef = useCanvas(update, { onMouseMove: handleMouseMove });
 
     return <canvas ref={canvasRef} {...props} />
 }
