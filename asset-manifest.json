@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/voronoi-generator/static/css/main.f3651236.chunk.css",
-    "main.js": "/voronoi-generator/static/js/main.69709b83.chunk.js",
-    "main.js.map": "/voronoi-generator/static/js/main.69709b83.chunk.js.map",
+    "main.js": "/voronoi-generator/static/js/main.948873bb.chunk.js",
+    "main.js.map": "/voronoi-generator/static/js/main.948873bb.chunk.js.map",
     "runtime-main.js": "/voronoi-generator/static/js/runtime-main.db8d1294.js",
     "runtime-main.js.map": "/voronoi-generator/static/js/runtime-main.db8d1294.js.map",
     "static/css/2.679831fc.chunk.css": "/voronoi-generator/static/css/2.679831fc.chunk.css",
@@ -18,6 +18,6 @@
     "static/css/2.679831fc.chunk.css",
     "static/js/2.9ce7f940.chunk.js",
     "static/css/main.f3651236.chunk.css",
-    "static/js/main.69709b83.chunk.js"
+    "static/js/main.948873bb.chunk.js"
   ]
 }
