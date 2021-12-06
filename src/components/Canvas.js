@@ -64,11 +64,14 @@ const Canvas = props => {
     }, [colors, colorsInverted, distance, particles]);
 
     const handleMouseMove = useCallback((context, event) => {
-        particles[0] = [event.layerX, event.layerY];
+        particles[0] = [event.offsetX, event.offsetY];
         update(context);
     }, [particles, update]);
 
-    const canvasRef = useCanvas(update, { onMouseMove: handleMouseMove });
+    const canvasRef = useCanvas(update, { 
+        onMouseMove: handleMouseMove,
+        onTouchMove: handleMouseMove
+    });
 
     return <canvas ref={canvasRef} {...props} />
 }
