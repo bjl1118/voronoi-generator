@@ -4,23 +4,21 @@ import { scaleLinear } from 'd3-scale';
 import useCanvas from "../hooks/UseCanvas";
 
 const Canvas = props => {
-    const particles = Array.from({ length: props.numPoints }, () => [Math.random() * props.width, Math.random() * props.height]);
-
     const center = useCallback(() => [props.width * 0.5, props.height * 0.5], [props.height, props.width]);
 
     const colors = useCallback(() => {
         const maxDistance = pythagoras(center()[0], center()[1]);
         return scaleLinear()
             .domain([0, maxDistance])
-            .range(['#fff', props.firstColor]);
-    }, [center, props.firstColor]);
+            .range([props.secondColor, props.firstColor]);
+    }, [center, props.firstColor, props.secondColor]);
 
     const colorsInverted = useCallback(() => {
         const maxDistance = pythagoras(center()[0], center()[1]);
         return scaleLinear()
             .domain([0, maxDistance])
-            .range(['#DEDC47', '#edec9b'])
-    }, [center]);
+            .range([props.firstColor, props.secondColor])
+    }, [center, props.firstColor, props.secondColor]);
 
     const distance = useCallback((x, y) => {
         const a = center()[0] - x;
@@ -35,16 +33,16 @@ const Canvas = props => {
         ctx.fillStyle = '#ffffff';
         ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-        const delaunay = Delaunay.from(particles);
+        const delaunay = Delaunay.from(props.particles);
         const voronoi = delaunay.voronoi([0.5, 0.5, ctx.canvas.width, ctx.canvas.height]);
 
-        const color = colorsInverted()(distance(particles[0][0], particles[0][1]));
+        const color = colorsInverted()(distance(props.particles[0][0], props.particles[0][1]));
         ctx.fillStyle = color;
         ctx.beginPath();
         voronoi.renderCell(0, ctx);
         ctx.fill();
 
-        particles.forEach((p, i) => {
+        props.particles.forEach((p, i) => {
             if (i === 0) {
                 return;
             }
@@ -60,12 +58,12 @@ const Canvas = props => {
         voronoi.renderBounds(ctx);
         ctx.strokeStyle = '#000';
         ctx.stroke();
-    }, [colors, colorsInverted, distance, particles]);
+    }, [colors, colorsInverted, distance, props.particles]);
 
     const handleMouseMove = useCallback((context, event) => {
-        particles[0] = [event.offsetX, event.offsetY];
+        props.particles[0] = [event.offsetX, event.offsetY];
         update(context);
-    }, [particles, update]);
+    }, [props.particles, update]);
 
     const canvasRef = useCanvas(update, {
         onMouseMove: handleMouseMove,

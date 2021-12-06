@@ -23,14 +23,23 @@ const Controls = props => {
             onChange={(e) => props.onFirstColorChange(e.target.value)}
         >
         </input>
+
+        <input
+            type="color"
+            value={props.secondColor}
+            onChange={(e) => props.onSecondColorChange(e.target.value)}
+        >
+        </input>
     </div>
 }
 
 Controls.propTypes = {
     numPoints: PropTypes.number.isRequired,
     onNumPointsChange: PropTypes.func.isRequired,
-    color: PropTypes.string.isRequired,
-    onFirstColorChange: PropTypes.string.isRequired
+    firstColor: PropTypes.string.isRequired,
+    onFirstColorChange: PropTypes.string.isRequired,
+    secondColor: PropTypes.string.isRequired,
+    onSecondColorChange: PropTypes.string.isRequired
 }
 
 export default Controls;
