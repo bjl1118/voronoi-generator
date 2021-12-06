@@ -4,8 +4,7 @@ import { scaleLinear } from 'd3-scale';
 import useCanvas from "../hooks/UseCanvas";
 
 const Canvas = props => {
-    const n = 200;
-    const particles = Array.from({ length: n }, () => [Math.random() * props.width, Math.random() * props.height]);
+    const particles = Array.from({ length: props.numPoints }, () => [Math.random() * props.width, Math.random() * props.height]);
 
     const center = useCallback(() => [props.width * 0.5, props.height * 0.5], [props.height, props.width]);
 
@@ -13,8 +12,8 @@ const Canvas = props => {
         const maxDistance = pythagoras(center()[0], center()[1]);
         return scaleLinear()
             .domain([0, maxDistance])
-            .range(['#fff', '#d00']);
-    }, [center]);
+            .range(['#fff', props.firstColor]);
+    }, [center, props.firstColor]);
 
     const colorsInverted = useCallback(() => {
         const maxDistance = pythagoras(center()[0], center()[1]);
@@ -68,7 +67,7 @@ const Canvas = props => {
         update(context);
     }, [particles, update]);
 
-    const canvasRef = useCanvas(update, { 
+    const canvasRef = useCanvas(update, {
         onMouseMove: handleMouseMove,
         onTouchMove: handleMouseMove
     });

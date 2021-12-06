@@ -1,13 +1,24 @@
+@import-normalize;
+
 .App {
-  background: #ddd;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  display: flex;
+  overflow: hidden;
+  height: 100vh;
+  background: #263238;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 0.8rem;
+}
+
+.App>.Canvas {
+  overflow-y: auto;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.App>.Controls {
+  flex: 1 0 350px;
+  background: #151b1e;
 }
 
 .App-link {
