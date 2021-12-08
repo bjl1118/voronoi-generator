@@ -17,8 +17,8 @@ const Canvas = props => {
         const maxDistance = pythagoras(center()[0], center()[1]);
         return scaleLinear()
             .domain([0, maxDistance])
-            .range([props.firstColor, props.secondColor])
-    }, [center, props.firstColor, props.secondColor]);
+            .range(['#DEDC47', '#edec9b'])
+    }, [center]);
 
     const distance = useCallback((x, y) => {
         const a = center()[0] - x;
@@ -56,9 +56,10 @@ const Canvas = props => {
         ctx.beginPath();
         voronoi.render(ctx);
         voronoi.renderBounds(ctx);
-        ctx.strokeStyle = '#000';
+        ctx.lineWidth = props.strokeSize;
+        ctx.strokeStyle = props.strokeColor;
         ctx.stroke();
-    }, [colors, colorsInverted, distance, props.particles]);
+    }, [colors, colorsInverted, distance, props.particles, props.strokeColor, props.strokeSize]);
 
     const handleMouseMove = useCallback((context, event) => {
         props.particles[0] = [event.offsetX, event.offsetY];

@@ -7,39 +7,72 @@ const Controls = props => {
     const minNumPoints = 1;
     const maxNumPoints = 300;
 
+    const minStrokeSize = 0;
+    const maxStrokeSize = 20;
+
     return <div className="Controls">
-        <input
-            type="number"
-            value={props.numPoints}
-            min={minNumPoints}
-            max={maxNumPoints}
-            onChange={(e) => props.onNumPointsChange(e.target.value)}
-        >
-        </input>
+        <fieldset>
+            <div>
+                <label>Number of Points:</label>
+                <input
+                    type="number"
+                    value={props.options.numPoints}
+                    min={minNumPoints}
+                    max={maxNumPoints}
+                    onChange={(e) => props.onOptionsChange(e.target.value || 1, 'numPoints')}
+                >
+                </input>
+            </div>
 
-        <input
-            type="color"
-            value={props.firstColor}
-            onChange={(e) => props.onFirstColorChange(e.target.value)}
-        >
-        </input>
+            <div>
+                <label>Outer Color:</label>
+                <input
+                    type="color"
+                    value={props.options.firstColor}
+                    onChange={(e) => props.onOptionsChange(e.target.value, 'firstColor')}
+                >
+                </input>
+            </div>
 
-        <input
-            type="color"
-            value={props.secondColor}
-            onChange={(e) => props.onSecondColorChange(e.target.value)}
-        >
-        </input>
+            <div>
+                <label>Inner Color:</label>
+                <input
+                    type="color"
+                    value={props.options.secondColor}
+                    onChange={(e) => props.onOptionsChange(e.target.value, 'secondColor')}
+                >
+                </input>
+            </div>
+
+            <div>
+                <label>Stroke Color:</label>
+                <input
+                    type="color"
+                    value={props.options.strokeColor}
+                    onChange={(e) => props.onOptionsChange(e.target.value, 'strokeColor')}
+                >
+                </input>
+            </div>
+
+            <div>
+                <label>Stroke Size:</label>
+                <input
+                    type="number"
+                    value={props.options.strokeSize}
+                    min={minStrokeSize}
+                    max={maxStrokeSize}
+                    onChange={(e) => props.onOptionsChange(e.target.value, 'strokeSize')}
+                >
+                </input>
+            </div>
+
+        </fieldset>
     </div>
 }
 
 Controls.propTypes = {
-    numPoints: PropTypes.number.isRequired,
-    onNumPointsChange: PropTypes.func.isRequired,
-    firstColor: PropTypes.string.isRequired,
-    onFirstColorChange: PropTypes.string.isRequired,
-    secondColor: PropTypes.string.isRequired,
-    onSecondColorChange: PropTypes.string.isRequired
+    options: PropTypes.object.isRequired,
+    onOptionsChange: PropTypes.func.isRequired,
 }
 
 export default Controls;

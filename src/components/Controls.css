@@ -2,3 +2,27 @@
     padding: 1rem;
     color: white;
 }
+
+.Controls label {
+    font-weight: 500;
+    text-align: right;
+    padding-right: 0.5rem;
+}
+
+.Controls fieldset {
+    padding: 1rem;
+}
+
+.Controls fieldset>div {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.Controls fieldset>div:last-child {
+    margin-bottom: 0;
+}
+
+.Controls fieldset {
+    border-radius: 4px;
+}
