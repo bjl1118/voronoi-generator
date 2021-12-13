@@ -28,10 +28,12 @@ const Canvas = props => {
 
     const pythagoras = (a, b) => Math.sqrt(a * a + b * b);
 
-    const update = useCallback(ctx => {
+    const update = useCallback((ctx, frameCount) => {
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         ctx.fillStyle = '#ffffff';
         ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+        console.log('FRAME COUNT', frameCount);
 
         const delaunay = Delaunay.from(props.particles);
         const voronoi = delaunay.voronoi([0.5, 0.5, ctx.canvas.width, ctx.canvas.height]);
