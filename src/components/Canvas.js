@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import { Delaunay } from "d3-delaunay";
 import { scaleLinear } from "d3-scale";
 import useCanvas from "../hooks/UseCanvas";
+import { pythagoras, normalize, distance } from "../utils/utils";
 
 const Canvas = (props) => {
   const center = useCallback(
@@ -21,29 +22,14 @@ const Canvas = (props) => {
     return scaleLinear().domain([0, maxDistance]).range(["#DEDC47", "#edec9b"]);
   }, [center]);
 
-  const distance = useCallback(
-    (x, y) => {
-      const a = center()[0] - x;
-      const b = center()[1] - y;
-      return pythagoras(a, b);
-    },
-    [center]
-  );
-
-  const pythagoras = (a, b) => Math.sqrt(a * a + b * b);
-
-  const vector = (point1, point2) => [
-    point2[0] * 1.0 - point1[0] * 1.0,
-    point2[1] * 1.0 - point1[1] * 1.0,
-  ];
-
-  const normalize = useCallback((point1, point2) => {
-    const v = vector(point1, point2);
-    const distance = pythagoras(v[0], v[1]);
-    const xNormal = v[0] / distance;
-    const yNormal = v[1] / distance;
-    return [xNormal, yNormal];
-  }, []);
+  // const distance = useCallback(
+  //   (x, y) => {
+  //     const a = center()[0] - x;
+  //     const b = center()[1] - y;
+  //     return pythagoras(a, b);
+  //   },
+  //   [center]
+  // );
 
   const update = useCallback(
     (ctx, frameCount) => {
@@ -60,7 +46,7 @@ const Canvas = (props) => {
       ]);
 
       const color = colorsInverted()(
-        distance(props.particles[0][0], props.particles[0][1])
+        distance(props.particles[0][0], props.particles[0][1], center()[0], center()[1])
       );
       ctx.fillStyle = color;
       ctx.beginPath();
@@ -82,20 +68,20 @@ const Canvas = (props) => {
           nextX > ctx.canvas.width ||
           nextY > ctx.canvas.height
         ) {
-          const widthMax = ctx.canvas.width / 2 + 5;
-          const widthMin = ctx.canvas.width / 2 - 5;
-          const heightMax = ctx.canvas.height / 2 + 5;
-          const heightMin = ctx.canvas.height / 2 - 5;
-          const newX = Math.floor(
-            Math.random() * (widthMax - widthMin) + widthMin
-          );
-          const newY = Math.floor(
-            Math.random() * (heightMax - heightMin) + heightMin
-          );
-          props.particles[i] = [newX, newY];
+          // const widthMax = ctx.canvas.width / 2 + 5;
+          // const widthMin = ctx.canvas.width / 2 - 5;
+          // const heightMax = ctx.canvas.height / 2 + 5;
+          // const heightMin = ctx.canvas.height / 2 - 5;
+          // const newX = Math.floor(
+          //   Math.random() * (widthMax - widthMin) + widthMin
+          // );
+          // const newY = Math.floor(
+          //   Math.random() * (heightMax - heightMin) + heightMin
+          // );
+          // props.particles[i] = [newX, newY];
         }
 
-        const color = colors()(distance(p[0], p[1]));
+        const color = colors()(distance(p[0], p[1], center()[0], center()[1]));
         ctx.fillStyle = color;
         ctx.beginPath();
         voronoi.renderCell(i, ctx);
@@ -113,8 +99,6 @@ const Canvas = (props) => {
       center,
       colors,
       colorsInverted,
-      distance,
-      normalize,
       props.particles,
       props.strokeColor,
       props.strokeSize,
