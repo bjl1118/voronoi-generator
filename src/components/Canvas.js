@@ -22,15 +22,6 @@ const Canvas = (props) => {
     return scaleLinear().domain([0, maxDistance]).range(["#DEDC47", "#edec9b"]);
   }, [center]);
 
-  // const distance = useCallback(
-  //   (x, y) => {
-  //     const a = center()[0] - x;
-  //     const b = center()[1] - y;
-  //     return pythagoras(a, b);
-  //   },
-  //   [center]
-  // );
-
   const update = useCallback(
     (ctx, frameCount) => {
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
