@@ -2,7 +2,8 @@ import React, { useCallback } from "react";
 import { Delaunay } from "d3-delaunay";
 import { scaleLinear } from "d3-scale";
 import useCanvas from "../hooks/UseCanvas";
-import { pythagoras, normalize, distance } from "../utils/utils";
+import { pythagoras, distance } from "../utils/utils";
+import expand from "../animations/Expand";
 
 const Canvas = (props) => {
   const center = useCallback(
@@ -48,28 +49,9 @@ const Canvas = (props) => {
         if (i === 0) {
           return;
         }
-
-        const vector = normalize(center(), p);
-        const nextX = Math.round(p[0] + vector[0]);
-        const nextY = Math.round(p[1] + vector[1]);
-        props.particles[i] = [nextX, nextY];
-        if (
-          nextX < 0 ||
-          nextY < 0 ||
-          nextX > ctx.canvas.width ||
-          nextY > ctx.canvas.height
-        ) {
-          // const widthMax = ctx.canvas.width / 2 + 5;
-          // const widthMin = ctx.canvas.width / 2 - 5;
-          // const heightMax = ctx.canvas.height / 2 + 5;
-          // const heightMin = ctx.canvas.height / 2 - 5;
-          // const newX = Math.floor(
-          //   Math.random() * (widthMax - widthMin) + widthMin
-          // );
-          // const newY = Math.floor(
-          //   Math.random() * (heightMax - heightMin) + heightMin
-          // );
-          // props.particles[i] = [newX, newY];
+        const next = expand(props.particles, i, ctx);
+        if (next) {
+          props.particles[i] = next;
         }
 
         const color = colors()(distance(p[0], p[1], center()[0], center()[1]));
