@@ -66,6 +66,10 @@ const Controls = props => {
                 </input>
             </div>
 
+            <div>
+                <button onClick={() => props.onResetClick()}>Reset</button>
+            </div>
+
         </fieldset>
     </div>
 }

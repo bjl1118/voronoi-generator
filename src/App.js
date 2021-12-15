@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import './App.css';
 import Canvas from './components/Canvas';
 import Controls from './components/Controls';
@@ -18,16 +18,22 @@ function App() {
     strokeColor: '#000000'
   });
 
+  const randomParticles = useCallback(
+    () => Array.from({ length: options.numPoints }, () => [Math.random() * width, Math.random() * height]),
+    [height, options.numPoints, width]
+  );
+
+  const [particles, setParticles] = useState(randomParticles());
+
   const onControlChange = (val, key) => {
     let newOptions = { ...options };
     newOptions[key] = val;
     setOptions(Object.assign({}, newOptions));
   }
 
-  const particles = useMemo(
-    () => Array.from({ length: options.numPoints }, () => [Math.random() * width, Math.random() * height]),
-    [height, options.numPoints, width]
-  );
+  const onResetClick = () => {
+    setParticles(randomParticles());
+  }
   
   return (
     <div className="App">
@@ -46,6 +52,7 @@ function App() {
       <div className="Controls">
         <Controls
           options={options}
+          onResetClick={() => onResetClick()}
           onOptionsChange={(val, key) => onControlChange(val, key)}
         />
       </div>
