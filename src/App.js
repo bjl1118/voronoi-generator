@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 import './App.css';
 import Canvas from './components/Canvas';
 import Controls from './components/Controls';
+import expand from "./animations/Expand";
 
 function App() {
 
@@ -10,12 +11,18 @@ function App() {
   const width = window.innerWidth * widthFactor;
   const height = window.innerHeight * heightFactor;
 
+  const animations = {
+    none: () => {},
+    expand: (particles, index, ctx) => expand(particles, index, ctx)
+  }
+
   const [options, setOptions] = useState({
     numPoints: 50,
     firstColor: '#d00000',
     secondColor: '#ffffff',
     strokeSize: 1,
-    strokeColor: '#000000'
+    strokeColor: '#000000',
+    animation: animations['none']
   });
 
   const randomParticles = useCallback(
@@ -41,6 +48,7 @@ function App() {
         <Canvas
           height={window.innerHeight * heightFactor}
           width={window.innerWidth * widthFactor}
+          animation={options.animation}
           numPoints={options.numPoints}
           particles={particles}
           firstColor={options.firstColor}
@@ -52,6 +60,7 @@ function App() {
       <div className="Controls">
         <Controls
           options={options}
+          animations={animations}
           onResetClick={() => onResetClick()}
           onOptionsChange={(val, key) => onControlChange(val, key)}
         />

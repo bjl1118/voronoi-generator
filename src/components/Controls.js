@@ -67,6 +67,13 @@ const Controls = props => {
             </div>
 
             <div>
+                <label>Animation:</label>
+                <select onChange={(e) => props.onOptionsChange(props.animations[e.target.value], 'animation')} name="animations">
+                    <option value="none">None</option>
+                    <option value="expand">Expand</option>
+                </select>
+            </div>
+            <div>
                 <button onClick={() => props.onResetClick()}>Reset</button>
             </div>
 

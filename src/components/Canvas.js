@@ -3,7 +3,6 @@ import { Delaunay } from "d3-delaunay";
 import { scaleLinear } from "d3-scale";
 import useCanvas from "../hooks/UseCanvas";
 import { pythagoras, distance } from "../utils/utils";
-import expand from "../animations/Expand";
 
 const Canvas = (props) => {
   const center = useCallback(
@@ -49,7 +48,7 @@ const Canvas = (props) => {
         if (i === 0) {
           return;
         }
-        const next = expand(props.particles, i, ctx);
+        const next = props.animation(props.particles, i, ctx);
         if (next) {
           props.particles[i] = next;
         }
@@ -72,9 +71,7 @@ const Canvas = (props) => {
       center,
       colors,
       colorsInverted,
-      props.particles,
-      props.strokeColor,
-      props.strokeSize,
+      props
     ]
   );
 
