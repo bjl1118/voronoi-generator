@@ -48,7 +48,7 @@ const Canvas = (props) => {
         if (i === 0) {
           return;
         }
-        const next = props.animation(props.particles, i, ctx);
+        const next = props.animation(props.particles, i, ctx, frameCount);
         if (next) {
           props.particles[i] = next;
         }

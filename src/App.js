@@ -3,6 +3,7 @@ import './App.css';
 import Canvas from './components/Canvas';
 import Controls from './components/Controls';
 import expand from "./animations/Expand";
+import orbit from './animations/Orbit';
 
 function App() {
 
@@ -13,13 +14,14 @@ function App() {
 
   const animations = {
     none: () => {},
-    expand: (particles, index, ctx) => expand(particles, index, ctx)
+    expand: (particles, index, ctx, frameCount) => expand(particles, index, ctx),
+    orbit: (particles, index, ctx, frameCount) => orbit(particles, index, ctx, frameCount)
   }
 
   const [options, setOptions] = useState({
     numPoints: 50,
-    firstColor: '#d00000',
-    secondColor: '#ffffff',
+    firstColor: '#23D100',
+    secondColor: '#135FC3',
     strokeSize: 1,
     strokeColor: '#000000',
     animation: animations['none']
@@ -32,10 +34,13 @@ function App() {
 
   const [particles, setParticles] = useState(randomParticles());
 
-  const onControlChange = (val, key) => {
+  const onControlChange = (val, key, resetPoints = false) => {
     let newOptions = { ...options };
     newOptions[key] = val;
     setOptions(Object.assign({}, newOptions));
+    if (resetPoints) {
+      setParticles(randomParticles())
+    }
   }
 
   const onResetClick = () => {
@@ -62,7 +67,7 @@ function App() {
           options={options}
           animations={animations}
           onResetClick={() => onResetClick()}
-          onOptionsChange={(val, key) => onControlChange(val, key)}
+          onOptionsChange={(val, key, resetPoints) => onControlChange(val, key, resetPoints)}
         />
       </div>
     </div>
