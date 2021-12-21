@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 import './App.css';
+import 'font-awesome/css/font-awesome.min.css';
 import Canvas from './components/Canvas';
 import Controls from './components/Controls';
 import expand from "./animations/Expand";
@@ -13,7 +14,7 @@ function App() {
   const height = window.innerHeight * heightFactor;
 
   const animations = {
-    none: () => {},
+    none: () => { },
     expand: (particles, index, ctx, frameCount) => expand(particles, index, ctx),
     orbit: (particles, index, ctx, frameCount) => orbit(particles, index, ctx, frameCount)
   }
@@ -26,6 +27,8 @@ function App() {
     strokeColor: '#000000',
     animation: animations['none']
   });
+
+  const [showMenu, setShowMenu] = useState(true);
 
   const randomParticles = useCallback(
     () => Array.from({ length: options.numPoints }, () => [Math.random() * width, Math.random() * height]),
@@ -46,7 +49,12 @@ function App() {
   const onResetClick = () => {
     setParticles(randomParticles());
   }
-  
+
+  const toggleMenu = () => {
+    setShowMenu(!showMenu)
+    setParticles(randomParticles())
+  }
+
   return (
     <div className="App">
       <div className="Canvas">
@@ -61,15 +69,27 @@ function App() {
           strokeSize={options.strokeSize}
           strokeColor={options.strokeColor}
         />
+        <span class="ToggleButton">
+          <button onClick={() => toggleMenu()}>
+            {
+              showMenu ?
+                <i className="fa fa-times" ariaHidden="true"></i> :
+                <i className="fa fa-bars" ariaHidden="true"></i>
+            }
+          </button>
+        </span>
       </div>
-      <div className="Controls">
-        <Controls
-          options={options}
-          animations={animations}
-          onResetClick={() => onResetClick()}
-          onOptionsChange={(val, key, resetPoints) => onControlChange(val, key, resetPoints)}
-        />
-      </div>
+      {
+        showMenu &&
+        <div className="Controls">
+          <Controls
+            options={options}
+            animations={animations}
+            onResetClick={() => onResetClick()}
+            onOptionsChange={(val, key, resetPoints) => onControlChange(val, key, resetPoints)}
+          />
+        </div>
+      }
     </div>
   );
 }
