@@ -19,7 +19,7 @@ const Controls = props => {
                     value={props.options.numPoints}
                     min={minNumPoints}
                     max={maxNumPoints}
-                    onChange={(e) => props.onOptionsChange(e.target.value || 1, 'numPoints')}
+                    onChange={(e) => props.onOptionsChange(e.target.value || 1, 'numPoints', true)}
                 >
                 </input>
             </div>
@@ -64,6 +64,18 @@ const Controls = props => {
                     onChange={(e) => props.onOptionsChange(e.target.value, 'strokeSize')}
                 >
                 </input>
+            </div>
+
+            <div>
+                <label>Animation:</label>
+                <select onChange={(e) => props.onOptionsChange(props.animations[e.target.value], 'animation')} name="animations">
+                    <option value="none">None</option>
+                    <option value="expand">Expand</option>
+                    <option value="orbit">Orbit</option>
+                </select>
+            </div>
+            <div>
+                <button onClick={() => props.onResetClick()}>Reset</button>
             </div>
 
         </fieldset>
