@@ -57,7 +57,8 @@
 
 @media only screen and (max-width: 900px) {
   .App>.Controls {
-    flex: 90% 0 350px;
+    flex: 0 0 350px;
+    max-width: 65%;
     background: #263238;
   }
 }
