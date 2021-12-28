@@ -34,9 +34,9 @@
 }
 
 .ToggleButton>button {
-  background-color: #1a9900;
-  border: none;
+  background-color: #1466b7;
   color: white;
+  border: none;
   width: 50px;
   height: 50px;
   position: relative;
@@ -47,6 +47,7 @@
   font-size: 16px;
   margin: 4px 2px;
   border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
 
 .ToggleButton>button>span {
