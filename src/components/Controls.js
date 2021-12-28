@@ -1,6 +1,6 @@
 import './Controls.css';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 
 const Controls = props => {
 
@@ -10,17 +10,31 @@ const Controls = props => {
     const minStrokeSize = 0;
     const maxStrokeSize = 20;
 
+    const [numPoints, setNumPoints] = useState(props.options.numPoints);
+
+    const isInt = (value) => {
+        return !isNaN(value) && !isNaN(parseInt(value, 10));
+    }
+
+    const handleNumPointsChange = (e) => {
+        setNumPoints(e.target.value);
+        console.log(e.target.value)
+        if (isInt(e.target.value) && parseInt(e.target.value) > 0) {
+            props.onOptionsChange(e.target.value, 'numPoints', true)
+        }
+    }
+
     return <div className="Controls">
         <fieldset>
-            <div class="table">
+            <div className="table">
                 <div>
                     <label>Number of Points:</label>
                     <input
                         type="number"
-                        value={props.options.numPoints}
+                        value={numPoints}
                         min={minNumPoints}
                         max={maxNumPoints}
-                        onChange={(e) => props.onOptionsChange(e.target.value || 1, 'numPoints', true)}
+                        onChange={(e) => handleNumPointsChange(e)}
                     >
                     </input>
                 </div>
