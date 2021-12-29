@@ -23,6 +23,7 @@ function App() {
     numPoints: 50,
     firstColor: '#23D100',
     secondColor: '#135FC3',
+    accentColor: '#DEDC47',
     strokeSize: 1,
     strokeColor: '#000000',
     animation: animations['none']
@@ -65,6 +66,7 @@ function App() {
           numPoints={options.numPoints}
           particles={particles}
           firstColor={options.firstColor}
+          accentColor={options.accentColor}
           secondColor={options.secondColor}
           strokeSize={options.strokeSize}
           strokeColor={options.strokeColor}

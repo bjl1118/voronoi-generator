@@ -60,6 +60,16 @@ const Controls = props => {
                 </div>
 
                 <div>
+                    <label>Accent Color:</label>
+                    <input
+                        type="color"
+                        value={props.options.accentColor}
+                        onChange={(e) => props.onOptionsChange(e.target.value, 'accentColor')}
+                    >
+                    </input>
+                </div>
+
+                <div>
                     <label>Stroke Color:</label>
                     <input
                         type="color"
