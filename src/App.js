@@ -67,21 +67,15 @@ function App() {
         <Canvas
           height={window.innerHeight * heightFactor}
           width={window.innerWidth * widthFactor}
-          animation={options.animation}
-          numPoints={options.numPoints}
           particles={particles}
-          firstColor={options.firstColor}
-          accentColor={options.accentColor}
-          secondColor={options.secondColor}
-          strokeSize={options.strokeSize}
-          strokeColor={options.strokeColor}
+          {...options}
         />
-        <span class="ToggleButton">
+        <span className="ToggleButton">
           <button onClick={() => toggleMenu()}>
             {
               showMenu ?
-                <i className="fa fa-times" ariaHidden="true"></i> :
-                <i className="fa fa-bars" ariaHidden="true"></i>
+                <i className="fa fa-times" aria-hidden="true"></i> :
+                <i className="fa fa-bars" aria-hidden="true"></i>
             }
           </button>
         </span>

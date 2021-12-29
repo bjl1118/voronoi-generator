@@ -3,6 +3,7 @@ import { Delaunay } from "d3-delaunay";
 import { scaleLinear } from "d3-scale";
 import useCanvas from "../hooks/UseCanvas";
 import { pythagoras, distance } from "../utils/utils";
+import PropTypes from 'prop-types';
 
 const Canvas = (props) => {
   const center = useCallback(
@@ -79,7 +80,24 @@ const Canvas = (props) => {
     onTouchMove: handleMouseMove,
   });
 
-  return <canvas ref={canvasRef} {...props} />;
+  return <canvas
+    ref={canvasRef}
+    width={props.width}
+    height={props.height}
+  />;
 };
+
+Canvas.propTypes = {
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  particles: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
+  numPoints: PropTypes.number.isRequired,
+  firstColor: PropTypes.string.isRequired,
+  secondColor: PropTypes.string.isRequired,
+  accentColor: PropTypes.string.isRequired,
+  strokeSize: PropTypes.number.isRequired,
+  strokeColor: PropTypes.string.isRequired,
+  animation: PropTypes.func.isRequired
+}
 
 export default Canvas;

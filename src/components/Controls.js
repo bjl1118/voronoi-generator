@@ -91,8 +91,20 @@ const Controls = props => {
 }
 
 Controls.propTypes = {
-    options: PropTypes.object.isRequired,
+    options: PropTypes.shape({
+        numPoints: PropTypes.number,
+        firstColor: PropTypes.string,
+        secondColor: PropTypes.string,
+        accentColor: PropTypes.string,
+        strokeSize: PropTypes.number,
+        strokeColor: PropTypes.string,
+        animation: PropTypes.func
+    }).isRequired,
     onOptionsChange: PropTypes.func.isRequired,
+    onResetClick: PropTypes.func.isRequired,
+    animations: PropTypes.objectOf(PropTypes.func).isRequired,
+    numPointsMax: PropTypes.number,
+    numPointsMin: PropTypes.number
 }
 
 export default Controls;
