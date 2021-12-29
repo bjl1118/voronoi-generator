@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import './App.css';
 import 'font-awesome/css/font-awesome.min.css';
 import Canvas from './components/Canvas';
@@ -10,6 +10,8 @@ function App() {
 
   const widthFactor = 0.75;
   const heightFactor = 0.75;
+  const numPointsMin = 1;
+  const numPointsMax = 500;
   const width = window.innerWidth * widthFactor;
   const height = window.innerHeight * heightFactor;
 
@@ -33,22 +35,25 @@ function App() {
 
   const randomParticles = useCallback(
     () => Array.from({ length: options.numPoints }, () => [Math.random() * width, Math.random() * height]),
-    [height, options.numPoints, width]
+    [height, width, options.numPoints]
   );
 
   const [particles, setParticles] = useState(randomParticles());
 
-  const onControlChange = (val, key, resetPoints = false) => {
+  useEffect(() => {
+    if (options.numPoints >= numPointsMin && options.numPoints <= numPointsMax) {
+      setParticles(randomParticles(options.numPoints));
+    }
+  }, [options.numPoints, randomParticles]);
+
+  const onControlChange = (val, key) => {
     let newOptions = { ...options };
     newOptions[key] = val;
     setOptions(Object.assign({}, newOptions));
-    if (resetPoints) {
-      setParticles(randomParticles())
-    }
   }
 
   const onResetClick = () => {
-    setParticles(randomParticles());
+    setParticles(randomParticles(options.numPoints));
   }
 
   const toggleMenu = () => {
@@ -87,6 +92,8 @@ function App() {
           <Controls
             options={options}
             animations={animations}
+            numPointsMax={numPointsMax}
+            numPointsMin={numPointsMin}
             onResetClick={() => onResetClick()}
             onOptionsChange={(val, key, resetPoints) => onControlChange(val, key, resetPoints)}
           />
