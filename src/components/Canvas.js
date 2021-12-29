@@ -3,6 +3,7 @@ import { Delaunay } from "d3-delaunay";
 import { scaleLinear } from "d3-scale";
 import useCanvas from "../hooks/UseCanvas";
 import { pythagoras, distance } from "../utils/utils";
+import PropTypes from 'prop-types';
 
 const Canvas = (props) => {
   const center = useCallback(
@@ -16,11 +17,6 @@ const Canvas = (props) => {
       .domain([0, maxDistance])
       .range([props.secondColor, props.firstColor]);
   }, [center, props.firstColor, props.secondColor]);
-
-  const colorsInverted = useCallback(() => {
-    const maxDistance = pythagoras(center()[0], center()[1]);
-    return scaleLinear().domain([0, maxDistance]).range(["#DEDC47", "#edec9b"]);
-  }, [center]);
 
   const update = useCallback(
     (ctx, frameCount) => {
@@ -36,10 +32,7 @@ const Canvas = (props) => {
         ctx.canvas.height,
       ]);
 
-      const color = colorsInverted()(
-        distance(props.particles[0][0], props.particles[0][1], center()[0], center()[1])
-      );
-      ctx.fillStyle = color;
+      ctx.fillStyle = props.accentColor;
       ctx.beginPath();
       voronoi.renderCell(0, ctx);
       ctx.fill();
@@ -70,7 +63,6 @@ const Canvas = (props) => {
     [
       center,
       colors,
-      colorsInverted,
       props
     ]
   );
@@ -88,7 +80,24 @@ const Canvas = (props) => {
     onTouchMove: handleMouseMove,
   });
 
-  return <canvas ref={canvasRef} {...props} />;
+  return <canvas
+    ref={canvasRef}
+    width={props.width}
+    height={props.height}
+  />;
 };
+
+Canvas.propTypes = {
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  particles: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
+  numPoints: PropTypes.number.isRequired,
+  firstColor: PropTypes.string.isRequired,
+  secondColor: PropTypes.string.isRequired,
+  accentColor: PropTypes.string.isRequired,
+  strokeSize: PropTypes.number.isRequired,
+  strokeColor: PropTypes.string.isRequired,
+  animation: PropTypes.func.isRequired
+}
 
 export default Canvas;

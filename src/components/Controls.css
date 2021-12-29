@@ -11,18 +11,49 @@
 
 .Controls fieldset {
     padding: 1rem;
-}
-
-.Controls fieldset>div {
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-}
-
-.Controls fieldset>div:last-child {
-    margin-bottom: 0;
-}
-
-.Controls fieldset {
     border-radius: 4px;
+}
+
+.table {
+    display: table;
+}
+
+.table>div {
+    display: table-row;
+}
+
+.table>div>label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+}
+
+.table>div>* {
+    display: table-cell;
+    margin: 0.5rem;
+}
+
+.table>div:last-child>* {
+    padding-bottom: 0;
+}
+
+.buttonContainer button {
+    background-color: #1466b7;
+    border: none;
+    color: white;
+    cursor: pointer;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    padding: 1rem;
+    margin: 4px 2px;
+    border-radius: 4px;
+}
+
+.buttonContainer button>* {
+    position: absolute;
+    top: 50%;
+    left: 50%;
 }
